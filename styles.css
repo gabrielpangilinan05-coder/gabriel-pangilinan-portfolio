@@ -422,6 +422,73 @@ h3,
   gap: 3rem;
 }
 
+.project-card {
+  margin-top: 2.5rem;
+  padding: clamp(1.35rem, 4vw, 2.25rem) 0 0;
+  border-top: 1px solid rgba(19, 33, 43, 0.12);
+}
+
+.project-header {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.project-header h3 {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.25rem, 4.5vw, 1.65rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  max-width: 28ch;
+}
+
+.project-tag {
+  margin: 0;
+  justify-self: start;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--teal-deep);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.project-body {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.project-body h4 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.project-body p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.project-steps {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--ink-soft);
+}
+
+.project-steps li + li {
+  margin-top: 0.45rem;
+}
+
+.project-tools {
+  margin-top: 1.75rem;
+}
+
 .skill-cloud {
   list-style: none;
   margin: 1rem 0 0;
@@ -546,6 +613,11 @@ h3,
 
   .btn {
     width: auto;
+  }
+
+  .project-header {
+    grid-template-columns: 1fr auto;
+    align-items: start;
   }
 
   .about-meta {

@@ -13,7 +13,7 @@ onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
 const revealTargets = document.querySelectorAll(
-  ".section-inner, .timeline-item, .service-list li, .skill-cloud"
+  ".section-inner, .timeline-item, .service-list li, .skill-cloud, .project-card"
 );
 
 revealTargets.forEach((el) => el.classList.add("reveal"));

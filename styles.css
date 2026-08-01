@@ -442,29 +442,102 @@ h3,
 .project-gallery figure {
   margin: 0;
   overflow: hidden;
-  border-radius: 1rem;
-  background: rgba(19, 33, 43, 0.04);
-  border: 1px solid rgba(19, 33, 43, 0.1);
-  box-shadow: 0 12px 30px rgba(19, 33, 43, 0.06);
+  border-radius: 1.1rem;
+  background: linear-gradient(180deg, #eef3f6 0%, #e4ebf0 100%);
+  border: 1px solid rgba(19, 33, 43, 0.12);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 16px 36px rgba(19, 33, 43, 0.1);
 }
 
-.project-gallery img {
-  width: 100%;
-  height: auto;
+.shot-frame {
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top center;
+  background: #0c1820;
+}
+
+.shot-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  height: 1.15rem;
+  background: linear-gradient(180deg, #dfe7ec, #d0dae2);
+  border-bottom: 1px solid rgba(19, 33, 43, 0.1);
+  pointer-events: none;
+}
+
+.shot-frame::after {
+  content: "";
+  position: absolute;
+  top: 0.42rem;
+  left: 0.65rem;
+  z-index: 3;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow:
+    0.55rem 0 0 #febc2e,
+    1.1rem 0 0 #28c840;
+  pointer-events: none;
+}
+
+.project-gallery .shot {
+  width: 100%;
+  height: 100%;
   display: block;
+  object-fit: cover;
+  transform-origin: center center;
+  transition: transform 0.55s var(--ease);
+}
+
+.project-gallery figure:hover .shot {
+  transform: scale(1.03);
+}
+
+/* Crop empty margins / side bars per screenshot */
+.shot-login {
+  object-position: center center;
+  transform: scale(1.42);
+}
+
+.project-gallery figure:hover .shot-login {
+  transform: scale(1.48);
+}
+
+.shot-dashboard {
+  object-position: center 12%;
+  transform: scale(1.18);
+}
+
+.project-gallery figure:hover .shot-dashboard {
+  transform: scale(1.24);
+}
+
+.shot-pawalert {
+  object-position: center 18%;
+  transform: scale(1.08);
+}
+
+.project-gallery figure:hover .shot-pawalert {
+  transform: scale(1.12);
+}
+
+.project-gallery-single .shot-frame {
+  aspect-ratio: 16 / 9;
 }
 
 .project-gallery figcaption {
   margin: 0;
-  padding: 0.7rem 0.9rem 0.85rem;
+  padding: 0.75rem 0.95rem 0.9rem;
   font-family: var(--font-display);
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--ink-soft);
   border-top: 1px solid rgba(19, 33, 43, 0.08);
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .project-features {
@@ -720,10 +793,26 @@ h3,
 
   .hero-media img,
   .hero-content,
-  .reveal {
+  .reveal,
+  .project-gallery .shot {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
+  }
+
+  .reveal {
     transform: none !important;
+  }
+
+  .shot-login {
+    transform: scale(1.42) !important;
+  }
+
+  .shot-dashboard {
+    transform: scale(1.18) !important;
+  }
+
+  .shot-pawalert {
+    transform: scale(1.08) !important;
   }
 }

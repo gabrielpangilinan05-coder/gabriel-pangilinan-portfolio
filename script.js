@@ -17,7 +17,10 @@ if (revealEls.length) {
       },
       { threshold: 0.15 }
     );
-    revealEls.forEach((el) => io.observe(el));
+    revealEls.forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.12}s`;
+      io.observe(el);
+    });
   } else {
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }
@@ -82,6 +85,8 @@ if (modal) {
     'project-visual-two',
     'project-visual-three',
     'project-visual-four',
+    'project-visual-five',
+    'project-visual-six',
   ];
 
   function textOf(el) {
@@ -278,6 +283,19 @@ if (modal) {
   }
 
   tiles.forEach((button) => {
+    const tile = button.closest('.project-tile');
+    const url = button.dataset.url;
+    if (tile && url && !tile.querySelector('.tile-view')) {
+      const link = document.createElement('a');
+      const title = textOf(tile.querySelector('.tile-title')) || 'project';
+      link.className = 'tile-view';
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.setAttribute('aria-label', `View ${title} live site`);
+      link.innerHTML = 'View <span aria-hidden="true">↗</span>';
+      tile.appendChild(link);
+    }
     button.addEventListener('click', () => open(button));
   });
 

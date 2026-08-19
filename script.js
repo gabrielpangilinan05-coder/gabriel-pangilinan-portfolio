@@ -15,10 +15,12 @@ if (revealEls.length) {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
     );
-    revealEls.forEach((el, i) => {
-      el.style.transitionDelay = `${i * 0.12}s`;
+    revealEls.forEach((el) => {
+      const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
+      const i = Math.max(siblings.indexOf(el), 0);
+      el.style.transitionDelay = `${i * 0.15}s`;
       io.observe(el);
     });
   } else {

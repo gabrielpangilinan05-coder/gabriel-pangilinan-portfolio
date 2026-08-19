@@ -3,30 +3,66 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-const revealEls = Array.from(document.querySelectorAll('.reveal'));
-if (revealEls.length) {
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-    revealEls.forEach((el) => {
-      const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
-      const i = Math.max(siblings.indexOf(el), 0);
-      el.style.transitionDelay = `${i * 0.15}s`;
-      io.observe(el);
-    });
-  } else {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-  }
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+  const syncThemeButton = () => {
+    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+  };
+  syncThemeButton();
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {}
+    syncThemeButton();
+  });
 }
+
+function enableCssScrollReveal() {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = Array.from(document.querySelectorAll('.reveal'));
+  if (!els.length) return;
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const delayFor = (el) => {
+    const root = el.closest('.section, .hero, .project-grid') || el.parentElement;
+    const group = Array.from(root.querySelectorAll('.reveal'));
+    const i = Math.min(Math.max(group.indexOf(el), 0), 5);
+    return `${0.06 + i * 0.1}s`;
+  };
+
+  const show = (el) => {
+    if (el.classList.contains('is-visible')) return;
+    el.style.transitionDelay = delayFor(el);
+    el.classList.add('is-visible');
+  };
+
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        show(entry.target);
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0, rootMargin: '0px 0px -10px 0px' }
+  );
+
+  els.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    const visible = rect.bottom > 48 && rect.top < window.innerHeight - 24;
+    if (visible) show(el);
+    else io.observe(el);
+  });
+}
+
+enableCssScrollReveal();
 
 const hire = document.querySelector('.hire');
 if (hire) {
@@ -307,5 +343,87 @@ if (modal) {
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !modal.hidden) close();
+  });
+}
+
+const contactForm = document.getElementById('contactForm');
+const contactSendWrap = document.getElementById('contactSendWrap');
+const contactSendToggle = document.getElementById('contactSendToggle');
+const contactSendMenu = document.getElementById('contactSendMenu');
+
+if (contactForm && contactSendWrap && contactSendToggle && contactSendMenu) {
+  const closeSendMenu = () => {
+    contactSendMenu.hidden = true;
+    contactSendToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  const openSendMenu = () => {
+    contactSendMenu.hidden = false;
+    contactSendToggle.setAttribute('aria-expanded', 'true');
+  };
+
+  const getInquiry = () => {
+    const data = new FormData(contactForm);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    const who = [name, email].filter(Boolean).join(' · ');
+    const text = who ? `Hi Gabriel!\n${who}\n\n${message}` : `Hi Gabriel!\n\n${message}`;
+    return { name, email, message, text };
+  };
+
+  const sendInquiry = (channel) => {
+    const inquiry = getInquiry();
+    if (channel === 'email') {
+      const subject = encodeURIComponent(inquiry.name ? `Project inquiry from ${inquiry.name}` : 'Project inquiry');
+      const details = [
+        inquiry.name && `Name: ${inquiry.name}`,
+        inquiry.email && `Email: ${inquiry.email}`,
+        inquiry.message,
+      ]
+        .filter(Boolean)
+        .join('\n\n');
+      const body = encodeURIComponent(details);
+      window.location.href = `mailto:gabrielpangilinan05@gmail.com?subject=${subject}&body=${body}`;
+      return;
+    }
+    if (channel === 'whatsapp') {
+      window.open(`https://wa.me/639765600691?text=${encodeURIComponent(inquiry.text)}`, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (channel === 'messenger') {
+      window.open('https://m.me/gabgabyy77', '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (channel === 'telegram') {
+      window.open(`https://t.me/gabgabyy77?text=${encodeURIComponent(inquiry.text)}`, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  contactSendToggle.addEventListener('click', () => {
+    if (!contactForm.reportValidity()) return;
+    if (contactSendMenu.hidden) openSendMenu();
+    else closeSendMenu();
+  });
+
+  contactSendMenu.querySelectorAll('[data-send]').forEach((button) => {
+    button.addEventListener('click', () => {
+      sendInquiry(button.dataset.send);
+      closeSendMenu();
+    });
+  });
+
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!contactForm.reportValidity()) return;
+    openSendMenu();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!contactSendWrap.contains(event.target)) closeSendMenu();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeSendMenu();
   });
 }

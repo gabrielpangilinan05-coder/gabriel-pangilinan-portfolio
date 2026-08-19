@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gabriel Pangilinan | Full-Stack Web Developer</title>
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
     <meta
       name="description"
       content="Gabriel Pangilinan — Full-Stack Web Developer & IT Solutions Specialist. Responsive web apps, custom POS and business systems, and API integrations with React, Next.js, and Node.js."
@@ -17,6 +26,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="noise" aria-hidden="true"></div>
 
     <header class="site-header">
@@ -26,9 +36,18 @@
         <a href="#services">Services</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+          <span class="theme-toggle-sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </span>
+          <span class="theme-toggle-moon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
+          </span>
+        </button>
         <span class="availability" aria-label="Available for new projects">
           <span class="availability-dot" aria-hidden="true"></span>
           <span class="availability-label">Available</span>
@@ -80,10 +99,12 @@
       <section class="hero">
         <div class="hero-media" aria-hidden="true">
           <img
-            src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=2000&q=80"
+            src="images/hero-night-desk.png"
             alt=""
             width="2000"
             height="1333"
+            decoding="async"
+            fetchpriority="high"
           />
           <div class="hero-veil"></div>
         </div>
@@ -108,22 +129,22 @@
       </section>
 
       <section class="section about" id="about">
-        <div class="section-inner reveal">
-          <p class="eyebrow">About</p>
-          <h2>Modern web development backed by an IT foundation.</h2>
-          <p class="lede">
+        <div class="section-inner">
+          <p class="eyebrow reveal">About</p>
+          <h2 class="reveal">Modern web development backed by an IT foundation.</h2>
+          <p class="lede reveal">
             I am a Full-Stack Web Developer and IT student specializing in web applications and tailored software systems. Combining strong frontend and backend experience with clear communication, accurate technical documentation, and efficient workflow design, I turn complex business requirements into clean, functional digital products.
           </p>
           <dl class="about-meta">
-            <div>
+            <div class="reveal">
               <dt>Location</dt>
               <dd>Mexico, Pampanga, PH</dd>
             </div>
-            <div>
+            <div class="reveal">
               <dt>Open to</dt>
-              <dd>Global &amp; Remote Web Dev / Software Engineering</dd>
+              <dd>Global &amp; Remote Web Dev, Creative media</dd>
             </div>
-            <div>
+            <div class="reveal">
               <dt>Core Focus</dt>
               <dd>Full-Stack Web Apps, POS Systems, API Integrations</dd>
             </div>
@@ -132,35 +153,35 @@
       </section>
 
       <section class="section services" id="services">
-        <div class="section-inner reveal">
-          <p class="eyebrow">Services</p>
-          <h2>What I can build for you.</h2>
-          <p class="lede">
+        <div class="section-inner">
+          <p class="eyebrow reveal">Services</p>
+          <h2 class="reveal">What I can build for you.</h2>
+          <p class="lede reveal">
             Practical full-stack development and IT solutions for local and online businesses.
           </p>
 
           <ul class="service-list">
-            <li>
+            <li class="reveal">
               <h3>Full-Stack Web Development</h3>
               <p>Custom, responsive websites and web apps built using React, Next.js, TypeScript, and Node.js.</p>
             </li>
-            <li>
+            <li class="reveal">
               <h3>Custom Business &amp; POS Systems</h3>
               <p>Tailored Point-of-Sale (POS), inventory management, and appointment scheduling software for local and online businesses.</p>
             </li>
-            <li>
+            <li class="reveal">
               <h3>API &amp; Payment Gateway Integration</h3>
               <p>Secure integration of relational databases (MySQL, SQLite) and payment providers like PayMongo and GCash.</p>
             </li>
-            <li>
+            <li class="reveal">
               <h3>Progressive Web Apps (PWA)</h3>
               <p>High-performance web applications optimized for mobile devices and store-ready deployment.</p>
             </li>
-            <li>
+            <li class="reveal">
               <h3>System Optimization &amp; Maintenance</h3>
               <p>Bug fixing, performance tuning, database structuring, and technical refactoring.</p>
             </li>
-            <li>
+            <li class="reveal">
               <h3>Technical Documentation &amp; Support</h3>
               <p>Detailed system manuals, architecture guides, and reliable post-launch technical assistance.</p>
             </li>
@@ -169,16 +190,16 @@
       </section>
 
       <section class="section experience" id="experience">
-        <div class="section-inner reveal">
-          <p class="eyebrow">Experience</p>
-          <h2>Building systems and solving problems under pressure.</h2>
+        <div class="section-inner">
+          <p class="eyebrow reveal">Experience</p>
+          <h2 class="reveal">Building systems and solving problems under pressure.</h2>
 
           <ol class="timeline">
-            <li class="timeline-item">
+            <li class="timeline-item reveal">
               <div class="timeline-meta">
                 <h3>Freelance Web Developer &amp; Systems Builder</h3>
                 <p class="place">Self-Employed</p>
-                <p class="when">2025 – 2026</p>
+                <p class="when">2025 – Present</p>
               </div>
               <ul>
                 <li>Designed, developed, and deployed full-stack web applications and specialized business tools.</li>
@@ -186,7 +207,7 @@
                 <li>Containerized project environments using Docker to streamline testing and deployment.</li>
               </ul>
             </li>
-            <li class="timeline-item">
+            <li class="timeline-item reveal">
               <div class="timeline-meta">
                 <h3>Technical &amp; Administrative Support</h3>
                 <p class="place">Saiko Builder Design and Build</p>
@@ -197,7 +218,7 @@
                 <li>Streamlined internal reporting processes and data retrieval workflows for team leads.</li>
               </ul>
             </li>
-            <li class="timeline-item">
+            <li class="timeline-item reveal">
               <div class="timeline-meta">
                 <h3>Operations &amp; Technical Support</h3>
                 <p class="place">Mimoki Samgy Grill &amp; Restaurant</p>
@@ -672,8 +693,8 @@
       </section>
 
       <section class="section education" id="education">
-        <div class="section-inner split reveal">
-          <div>
+        <div class="section-inner split">
+          <div class="reveal">
             <p class="eyebrow">Education</p>
             <h2>BS in Information Technology</h2>
             <p class="edu-school">Pampanga State University</p>
@@ -690,8 +711,8 @@
             </dl>
           </div>
           <div class="skill-groups">
-            <p class="eyebrow">Skills</p>
-            <div class="skill-group">
+            <p class="eyebrow reveal">Skills</p>
+            <div class="skill-group reveal">
               <h3>Frontend</h3>
               <ul class="skill-cloud">
                 <li>React</li>
@@ -703,7 +724,7 @@
                 <li>PWA</li>
               </ul>
             </div>
-            <div class="skill-group">
+            <div class="skill-group reveal">
               <h3>Backend &amp; Database</h3>
               <ul class="skill-cloud">
                 <li>Node.js</li>
@@ -713,7 +734,7 @@
                 <li>SQLite</li>
               </ul>
             </div>
-            <div class="skill-group">
+            <div class="skill-group reveal">
               <h3>Integrations &amp; DevOps</h3>
               <ul class="skill-cloud">
                 <li>PayMongo / GCash APIs</li>
@@ -721,7 +742,7 @@
                 <li>Git / GitHub</li>
               </ul>
             </div>
-            <div class="skill-group">
+            <div class="skill-group reveal">
               <h3>Solutions Architecture</h3>
               <ul class="skill-cloud">
                 <li>POS Systems</li>
@@ -729,7 +750,7 @@
                 <li>Appointment Scheduling</li>
               </ul>
             </div>
-            <div class="skill-group">
+            <div class="skill-group reveal">
               <h3>Professional</h3>
               <ul class="skill-cloud">
                 <li>Technical Writing</li>
@@ -743,30 +764,73 @@
       </section>
 
       <section class="section contact" id="contact">
-        <div class="section-inner contact-panel reveal">
-          <p class="eyebrow">Let’s work together</p>
-          <h2>Have a web app or system you need built?</h2>
-          <p class="lede">
+        <div class="section-inner">
+          <p class="eyebrow reveal">Let’s work together</p>
+          <h2 class="reveal">Have a web app or system you need built?</h2>
+          <p class="lede reveal">
             Send a short note about your project or requirements. I’ll reply with availability, an approach, and next steps.
           </p>
-          <div class="contact-actions">
-            <a
-              class="btn btn-primary"
-              href="https://wa.me/639765600691?text=Hi%20Gabriel!%20I'd%20like%20to%20discuss%20a%20web%20project."
-              target="_blank"
-              rel="noopener noreferrer"
-            >Book a free consultation</a>
-            <a
-              class="btn btn-ghost"
-              href="https://m.me/gabgabyy77"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Message on Messenger</a>
+
+          <div class="contact-layout">
+            <div class="contact-links">
+              <a class="contact-pill reveal" href="tel:+639765600691">
+                <span class="contact-pill-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <span>+63 976 560 0691</span>
+              </a>
+              <a class="contact-pill reveal" href="mailto:gabrielpangilinan05@gmail.com">
+                <span class="contact-pill-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                </span>
+                <span>gabrielpangilinan05@gmail.com</span>
+              </a>
+              <a class="contact-pill reveal" href="https://www.facebook.com/gabgabyy77" target="_blank" rel="noopener noreferrer">
+                <span class="contact-pill-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H6v4h3v8h4v-8h3.2L17 11h-4V9c0-.6.4-1 1-1z"/></svg>
+                </span>
+                <span>Facebook</span>
+              </a>
+              <a class="contact-pill reveal" href="https://t.me/gabgabyy77" target="_blank" rel="noopener noreferrer">
+                <span class="contact-pill-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 4.3 18.9 20c-.2.9-.8 1.1-1.6.7l-4.5-3.3-2.2 2.1c-.2.3-.5.4-.8.4l.3-4.7 8.5-7.7c.4-.3-.1-.5-.6-.2L6.7 13.4 2.2 12c-1-.3-1-.9.2-1.3L20 3.6c.8-.3 1.6.2 1.5.7z"/></svg>
+                </span>
+                <span>Telegram</span>
+              </a>
+            </div>
+
+            <form class="contact-card reveal" id="contactForm">
+              <div class="contact-fields">
+                <label class="contact-field">
+                  <span>Name <em>(optional)</em></span>
+                  <input type="text" name="name" autocomplete="name" placeholder="Your name" />
+                </label>
+                <label class="contact-field">
+                  <span>Email <em>(optional)</em></span>
+                  <input type="email" name="email" autocomplete="email" placeholder="you@email.com" />
+                </label>
+              </div>
+              <label class="contact-field">
+                <span>Message</span>
+                <textarea name="message" rows="6" required placeholder="Tell me about your project or idea..."></textarea>
+              </label>
+              <div class="contact-send-wrap" id="contactSendWrap">
+                <button class="contact-send" id="contactSendToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="contactSendMenu">
+                  Send Message
+                  <span aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M22 2 11 13"/></svg>
+                  </span>
+                </button>
+                <div class="contact-send-menu" id="contactSendMenu" role="menu" hidden>
+                  <button type="button" role="menuitem" data-send="email">Email</button>
+                  <button type="button" role="menuitem" data-send="whatsapp">WhatsApp</button>
+                  <button type="button" role="menuitem" data-send="messenger">Messenger</button>
+                  <button type="button" role="menuitem" data-send="telegram">Telegram</button>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="contact-actions contact-actions-secondary">
-            <a class="btn btn-ghost" href="mailto:gabrielpangilinan05@gmail.com">gabrielpangilinan05@gmail.com</a>
-            <a class="btn btn-ghost" href="tel:+639765600691">+63 976 560 0691</a>
-          </div>
+
           <p class="contact-note">Replies within 24 hours · San Jose Malino, Mexico, Pampanga · Open to global &amp; remote work</p>
         </div>
       </section>
@@ -777,6 +841,13 @@
       <a href="#top">Back to top</a>
     </footer>
 
+    <script src="vendor/motion.js"></script>
     <script src="script.js"></script>
+    <script src="motion-ui.js"></script>
+    <noscript>
+      <style>
+        .reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
   </body>
 </html>

@@ -352,14 +352,16 @@ const contactSendToggle = document.getElementById('contactSendToggle');
 const contactSendMenu = document.getElementById('contactSendMenu');
 
 if (contactForm && contactSendWrap && contactSendToggle && contactSendMenu) {
+  const menuLinks = {
+    email: contactSendMenu.querySelector('[data-send="email"]'),
+    whatsapp: contactSendMenu.querySelector('[data-send="whatsapp"]'),
+    messenger: contactSendMenu.querySelector('[data-send="messenger"]'),
+    telegram: contactSendMenu.querySelector('[data-send="telegram"]'),
+  };
+
   const closeSendMenu = () => {
     contactSendMenu.hidden = true;
     contactSendToggle.setAttribute('aria-expanded', 'false');
-  };
-
-  const openSendMenu = () => {
-    contactSendMenu.hidden = false;
-    contactSendToggle.setAttribute('aria-expanded', 'true');
   };
 
   const getInquiry = () => {
@@ -372,44 +374,51 @@ if (contactForm && contactSendWrap && contactSendToggle && contactSendMenu) {
     return { name, email, message, text };
   };
 
-  const sendInquiry = (channel) => {
+  const syncMenuLinks = () => {
     const inquiry = getInquiry();
-    if (channel === 'email') {
-      const subject = encodeURIComponent(inquiry.name ? `Project inquiry from ${inquiry.name}` : 'Project inquiry');
-      const details = [
-        inquiry.name && `Name: ${inquiry.name}`,
-        inquiry.email && `Email: ${inquiry.email}`,
-        inquiry.message,
-      ]
-        .filter(Boolean)
-        .join('\n\n');
-      const body = encodeURIComponent(details);
-      window.location.href = `mailto:gabrielpangilinan05@gmail.com?subject=${subject}&body=${body}`;
-      return;
+    const subject = encodeURIComponent(inquiry.name ? `Project inquiry from ${inquiry.name}` : 'Project inquiry');
+    const details = [inquiry.name && `Name: ${inquiry.name}`, inquiry.email && `Email: ${inquiry.email}`, inquiry.message]
+      .filter(Boolean)
+      .join('\n\n');
+    const body = encodeURIComponent(details);
+    const waText = encodeURIComponent(inquiry.text);
+
+    if (menuLinks.email) {
+      menuLinks.email.href = `mailto:gabrielpangilinan05@gmail.com?subject=${subject}&body=${body}`;
     }
-    if (channel === 'whatsapp') {
-      window.open(`https://wa.me/639765600691?text=${encodeURIComponent(inquiry.text)}`, '_blank', 'noopener,noreferrer');
-      return;
+    if (menuLinks.whatsapp) {
+      menuLinks.whatsapp.href = `https://wa.me/639765600691?text=${waText}`;
     }
-    if (channel === 'messenger') {
-      window.open('https://m.me/gabgabyy77', '_blank', 'noopener,noreferrer');
-      return;
+    if (menuLinks.messenger) {
+      menuLinks.messenger.href = 'https://m.me/gabgabyy77';
     }
-    if (channel === 'telegram') {
-      window.open(`https://t.me/gabgabyy77?text=${encodeURIComponent(inquiry.text)}`, '_blank', 'noopener,noreferrer');
+    if (menuLinks.telegram) {
+      menuLinks.telegram.href = `https://t.me/gabgabyy77`;
     }
   };
 
-  contactSendToggle.addEventListener('click', () => {
+  const openSendMenu = () => {
+    syncMenuLinks();
+    contactSendMenu.hidden = false;
+    contactSendToggle.setAttribute('aria-expanded', 'true');
+  };
+
+  contactSendToggle.addEventListener('click', (event) => {
+    event.stopPropagation();
     if (!contactForm.reportValidity()) return;
     if (contactSendMenu.hidden) openSendMenu();
     else closeSendMenu();
   });
 
-  contactSendMenu.querySelectorAll('[data-send]').forEach((button) => {
-    button.addEventListener('click', () => {
-      sendInquiry(button.dataset.send);
-      closeSendMenu();
+  contactSendMenu.querySelectorAll('[data-send]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (!contactForm.reportValidity()) {
+        event.preventDefault();
+        return;
+      }
+      syncMenuLinks();
+      window.setTimeout(closeSendMenu, 0);
     });
   });
 

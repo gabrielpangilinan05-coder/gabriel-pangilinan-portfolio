@@ -1834,7 +1834,7 @@ body.modal-open {
   display: none;
 }
 
-.contact-send-menu button {
+.contact-send-menu a {
   display: block;
   width: 100%;
   padding: 0.65rem 0.85rem;
@@ -1846,11 +1846,12 @@ body.modal-open {
   font-size: 0.88rem;
   font-weight: 700;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.contact-send-menu button:hover,
-.contact-send-menu button:focus-visible {
+.contact-send-menu a:hover,
+.contact-send-menu a:focus-visible {
   background: rgba(0, 210, 255, 0.14);
   outline: none;
 }
@@ -2095,7 +2096,7 @@ html[data-theme="light"] .contact-send-menu {
   border-color: rgba(19, 33, 43, 0.1);
 }
 
-html[data-theme="light"] .contact-send-menu button {
+html[data-theme="light"] .contact-send-menu a {
   color: var(--ink);
 }
 

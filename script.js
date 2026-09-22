@@ -359,6 +359,7 @@ if (contactForm && contactSendWrap && contactSendToggle && contactSendMenu) {
   const menuLinks = {
     email: contactSendMenu.querySelector('[data-send="email"]'),
     whatsapp: contactSendMenu.querySelector('[data-send="whatsapp"]'),
+    viber: contactSendMenu.querySelector('[data-send="viber"]'),
     messenger: contactSendMenu.querySelector('[data-send="messenger"]'),
     telegram: contactSendMenu.querySelector('[data-send="telegram"]'),
   };
@@ -392,6 +393,9 @@ if (contactForm && contactSendWrap && contactSendToggle && contactSendMenu) {
     }
     if (menuLinks.whatsapp) {
       menuLinks.whatsapp.href = `https://wa.me/639765600691?text=${waText}`;
+    }
+    if (menuLinks.viber) {
+      menuLinks.viber.href = 'viber://chat?number=%2B639765600691';
     }
     if (menuLinks.messenger) {
       menuLinks.messenger.href = 'https://m.me/gabgabyy77';

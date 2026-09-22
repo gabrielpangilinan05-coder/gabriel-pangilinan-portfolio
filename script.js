@@ -1,4 +1,4 @@
-const yearEl = document.getElementById('year');
+﻿const yearEl = document.getElementById('year');
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
@@ -125,6 +125,10 @@ if (modal) {
     'project-visual-four',
     'project-visual-five',
     'project-visual-six',
+    'project-visual-seven',
+    'project-visual-eight',
+    'project-visual-nine',
+    'project-visual-ten',
   ];
 
   function textOf(el) {
@@ -436,3 +440,4 @@ if (contactForm && contactSendWrap && contactSendToggle && contactSendMenu) {
     if (event.key === 'Escape') closeSendMenu();
   });
 }
+

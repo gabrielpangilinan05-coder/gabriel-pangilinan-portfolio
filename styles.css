@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --navy: #0b0e14;
   --navy-2: #121826;
   --ink: #e8f4ff;
@@ -767,6 +767,46 @@ html[data-theme="light"] .theme-toggle-moon {
 
 .tile-visual.project-visual-six .tile-visual-tag {
   color: #b5ffe1;
+}
+
+.project-visual-seven {
+  background:
+    linear-gradient(180deg, rgba(8, 28, 18, 0.08), rgba(8, 28, 18, 0.45)),
+    url("images/pesopath.png") center/cover no-repeat;
+}
+
+.tile-visual.project-visual-seven .tile-visual-name {
+  display: none;
+}
+
+.project-visual-eight {
+  background:
+    linear-gradient(180deg, rgba(20, 18, 14, 0.1), rgba(20, 18, 14, 0.48)),
+    url("images/arsy-consulting.png") center/cover no-repeat;
+}
+
+.tile-visual.project-visual-eight .tile-visual-name {
+  display: none;
+}
+
+.project-visual-nine {
+  background:
+    linear-gradient(180deg, rgba(40, 24, 28, 0.08), rgba(40, 24, 28, 0.42)),
+    url("images/finwise.png") center/cover no-repeat;
+}
+
+.tile-visual.project-visual-nine .tile-visual-name {
+  display: none;
+}
+
+.project-visual-ten {
+  background:
+    linear-gradient(180deg, rgba(20, 16, 14, 0.15), rgba(20, 16, 14, 0.5)),
+    url("images/joyce-richard.png") center/cover no-repeat;
+}
+
+.tile-visual.project-visual-ten .tile-visual-name {
+  display: none;
 }
 
 .project-header {
@@ -2133,3 +2173,4 @@ html[data-theme="light"] .hire-option {
     filter: none !important;
   }
 }
+
